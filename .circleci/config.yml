@@ -37,6 +37,7 @@ jobs:
     machine: true
     working_directory: ~/ci_app
     steps:
+      - checkout
       - restore_cache:
           key:
             - sf_cli
