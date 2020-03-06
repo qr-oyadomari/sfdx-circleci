@@ -37,7 +37,7 @@ jobs:
     machine: true
     working_directory: ~/ci_app
     steps:
-      - checkout
+      # - checkout
       - restore_cache:
           key:
             - 'sfdxCLI'
