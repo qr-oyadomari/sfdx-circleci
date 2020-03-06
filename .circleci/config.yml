@@ -28,12 +28,18 @@ jobs:
             ./sfdx/install
             sfdx
             mkdir tmp
+      - save_cache:
+          key: sf_cli-{{ sc }}
+          paths:
+            - ~/ci_app/sf_cli
 
   Setup_org:
     machine: true
     working_directory: ~/ci_app
     steps:
-      - checkout
+      - restore_cache:
+          key:
+            - sf_cli
       - run:
           name: Create hub key
           command: |
