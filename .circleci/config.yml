@@ -30,6 +30,7 @@ jobs:
             mkdir tmp
 
   Create_hub_key:
+    machine: true
     working_directory: ~/ci_app
     steps:
       - checkout
@@ -48,6 +49,7 @@ jobs:
           #- sfdx force:auth:jwt:grant --clientid $DEPLOY_CONSUMER_KEY --jwtkeyfile keys/deploy.key --username $DEPLOY_SFDC_USER -a deploy
 
   Setup_org:
+    machine: true
     working_directory: ~/ci_app
     steps:
       - checkout
@@ -61,6 +63,7 @@ jobs:
             sfdx force:source:push -u circle_build_$CIRCLE_BUILD_NUM
 
   Run_Apex_Tests:
+    machine: true
     working_directory: ~/ci_app
     steps:
       - checkout
@@ -73,6 +76,7 @@ jobs:
           path: ~/junit
 
   Delete_Useless_Scratch_org:
+    machine: true
     working_directory: ~/ci_app
     steps:
       - checkout
