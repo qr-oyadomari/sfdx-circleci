@@ -78,4 +78,4 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      - Setup_org:
+      - Setup_org
