@@ -30,6 +30,7 @@ jobs:
             mkdir tmp
 
   Setup_org:
+    machine: true
     steps:
       - run:
           name: Create hub key
