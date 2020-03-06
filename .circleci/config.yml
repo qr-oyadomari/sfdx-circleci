@@ -9,8 +9,7 @@ general:
 
 jobs:
   build:
-    docker:
-      - image: circleci/node:7.10
+    machine: true
     working_directory: ~/ci_app
     environment:
       # from https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_install_cli_standalone.htm
@@ -31,8 +30,7 @@ jobs:
             mkdir tmp
 
   Setup_org:
-    docker:
-      - image: circleci/node:7.10
+    machine: true
     working_directory: ~/ci_app
     steps:
       - checkout
@@ -49,7 +47,6 @@ jobs:
           #- echo $DEPLOY_SERVER_KEY_HEX | xxd -r -ps >> keys/deploy.key
           #- openssl rsa -in keys/deploy.key -check -noout
           #- sfdx force:auth:jwt:grant --clientid $DEPLOY_CONSUMER_KEY --jwtkeyfile keys/deploy.key --username $DEPLOY_SFDC_USER -a deploy
-      - checkout
       - run:
           name: Setup Org
           command: |
@@ -81,7 +78,4 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      - build
       - Setup_org:
-          requires:
-            - build
