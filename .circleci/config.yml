@@ -89,6 +89,7 @@ workflows:
     jobs:
       - build
       - Setup_org:
+          context: org-global
           requires:
             - build
       - Run_Apex_Tests:
