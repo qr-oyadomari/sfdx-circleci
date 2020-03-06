@@ -1,6 +1,6 @@
 version: 2
 
-general:
+# general:
 # Uncomment the following to specify only a specific branch
 #   branches:
 #     only:
