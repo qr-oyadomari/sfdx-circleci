@@ -28,6 +28,9 @@ jobs:
             ./sfdx/install
             sfdx
             mkdir tmp
+
+  Setup_org:
+    steps:
       - run:
           name: Create hub key
           command: |
@@ -73,3 +76,6 @@ workflows:
   build_and_test:
     jobs:
       - build
+      - Setup_org:
+          requires:
+            - build
