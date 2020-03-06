@@ -28,11 +28,6 @@ jobs:
             ./sfdx/install
             sfdx
             mkdir tmp
-
-  Setup_org:
-    machine: true
-    steps:
-      - checkout
       - run:
           name: Create hub key
           command: |
@@ -54,11 +49,6 @@ jobs:
             sfdx force --help
             sfdx force:org:create -s -f ~/ci_app/config/project-scratch-def.json -a circle_build_$CIRCLE_BUILD_NUM --wait 3
             sfdx force:source:push -u circle_build_$CIRCLE_BUILD_NUM
-
-  Run_Apex_Tests:
-    machine: true
-    steps:
-      - checkout
       - run:
           name: Run Apex Tests
           command: |
@@ -66,11 +56,6 @@ jobs:
             sfdx force:apex:test:run -c -d ~/junit -r junit --wait 5
       - store_test_results:
           path: ~/junit
-
-  Delete_Useless_Scratch_org:
-    machine: true
-    steps:
-      - checkout
       - run:
           name: Delete Useless Scratch Org
           command: |
@@ -88,13 +73,3 @@ workflows:
   build_and_test:
     jobs:
       - build
-      - Setup_org:
-          context: org-global
-          requires:
-            - build
-      - Run_Apex_Tests:
-          requires:
-            - Setup_org
-      - Delete_Useless_Scratch_org:
-          requires:
-            - Run_Apex_Tests
