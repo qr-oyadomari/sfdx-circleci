@@ -9,7 +9,8 @@ general:
 
 jobs:
   build:
-    machine: true
+    docker:
+      - image: circleci/node:7.10
     working_directory: ~/ci_app
     environment:
       # from https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_install_cli_standalone.htm
@@ -30,7 +31,8 @@ jobs:
             mkdir tmp
 
   Setup_org:
-    machine: true
+    docker:
+      - image: circleci/node:7.10
     working_directory: ~/ci_app
     steps:
       - checkout
