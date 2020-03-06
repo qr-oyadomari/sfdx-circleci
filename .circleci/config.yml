@@ -39,7 +39,7 @@ jobs:
     steps:
       - restore_cache:
           key:
-            - sf_cli
+            - sf_cli-{{ sc }}
       - run:
           name: Create hub key
           command: |
