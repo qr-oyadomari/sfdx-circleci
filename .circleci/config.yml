@@ -31,7 +31,7 @@ jobs:
 
   Setup_org:
     machine: true
-    working_directory: ~/ci_app
+    working_directory: ~/ci_app/sfdx
     steps:
       - checkout
       - run:
@@ -78,4 +78,7 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      - Setup_org
+      - build
+      - Setup_org:
+          requires:
+            - build
