@@ -31,7 +31,7 @@ jobs:
       - save_cache:
           key: {{ checksum ".circleci/config.yml" }}
           paths:
-            - "/home/ci_app/sfdxCLI"
+            - ~/ci_app/sfdxCLI
 
   Setup_org:
     machine: true
