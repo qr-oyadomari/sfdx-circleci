@@ -36,7 +36,7 @@ jobs:
       - run:
           name: Create hub key
           command: |
-            cd ~/ci_app/sfdx
+            ~/ci_app/sfdx
             echo 'make hub key'
             #- mkdir keys
             #- echo $HUB_SERVER_KEY_HEX | xxd -r -ps >> keys/hub.key
