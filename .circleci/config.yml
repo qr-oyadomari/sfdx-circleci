@@ -50,7 +50,6 @@ jobs:
 
   Setup_org:
     machine: true
-    working_directory: ~/ci_app
     steps:
       - checkout
       - run:
