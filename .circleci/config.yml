@@ -29,7 +29,7 @@ jobs:
             sfdx
             mkdir tmp
       - save_cache:
-          key: sfdxCLI
+          key: {{ checksum ".circleci/config.yml" }}
           paths:
             - ~/ci_app/sfdxCLI
 
@@ -39,7 +39,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: sfdxCLI
+          key: {{ checksum ".circleci/config.yml" }}
       - run:
           name: Create hub key
           command: |
