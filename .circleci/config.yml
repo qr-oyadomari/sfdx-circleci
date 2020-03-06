@@ -102,7 +102,7 @@ workflows:
             - build
       - Setup_org:
           requires:
-            - build
+            - Create_hub_key
       - Run_Apex_Tests:
           requires:
             - Create_hub_key
