@@ -33,6 +33,7 @@ jobs:
     machine: true
     working_directory: ~/ci_app
     steps:
+      - checkout
       - run:
           name: Create hub key
           command: |
