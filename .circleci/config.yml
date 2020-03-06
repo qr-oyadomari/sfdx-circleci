@@ -29,9 +29,9 @@ jobs:
             sfdx
             mkdir tmp
       - save_cache:
-          key: sfdxCLI
+          key: "sfdxCLI"
           paths:
-            - '~/ci_app/sfdxCLI'
+            - ~/ci_app/sfdxCLI
 
   Setup_org:
     machine: true
@@ -40,7 +40,7 @@ jobs:
       - checkout
       - restore_cache:
           key:
-            - sfdxCLI
+            - "sfdxCLI"
       - run:
           name: Create hub key
           command: |
