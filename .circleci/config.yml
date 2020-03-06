@@ -31,12 +31,12 @@ jobs:
 
   Setup_org:
     machine: true
-    working_directory: ~/ci_app/sfdx
     steps:
       - checkout
       - run:
           name: Create hub key
           command: |
+            cd ~/ci_app
             echo 'make hub key'
             #- mkdir keys
             #- echo $HUB_SERVER_KEY_HEX | xxd -r -ps >> keys/hub.key
