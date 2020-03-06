@@ -29,7 +29,7 @@ jobs:
             sfdx
             mkdir tmp
       - save_cache:
-          key: sf_cli-{{ sc }}
+          key: sf_cli
           paths:
             - ~/ci_app/sf_cli
 
@@ -39,7 +39,7 @@ jobs:
     steps:
       - restore_cache:
           key:
-            - sf_cli-{{ sc }}
+            - sf_cli
       - run:
           name: Create hub key
           command: |
