@@ -28,6 +28,11 @@ jobs:
             ./sfdx/install
             sfdx
             mkdir tmp
+
+  Create_hub_key:
+    working_directory: ~/ci_app
+    steps:
+      - checkout
       - run:
           name: Create hub key
           command: |
@@ -41,6 +46,11 @@ jobs:
           #- echo $DEPLOY_SERVER_KEY_HEX | xxd -r -ps >> keys/deploy.key
           #- openssl rsa -in keys/deploy.key -check -noout
           #- sfdx force:auth:jwt:grant --clientid $DEPLOY_CONSUMER_KEY --jwtkeyfile keys/deploy.key --username $DEPLOY_SFDC_USER -a deploy
+
+  Setup_org:
+    working_directory: ~/ci_app
+    steps:
+      - checkout
       - run:
           name: Setup Org
           command: |
@@ -49,6 +59,11 @@ jobs:
             sfdx force --help
             sfdx force:org:create -s -f ~/ci_app/config/project-scratch-def.json -a circle_build_$CIRCLE_BUILD_NUM --wait 3
             sfdx force:source:push -u circle_build_$CIRCLE_BUILD_NUM
+
+  Run_Apex_Tests:
+    working_directory: ~/ci_app
+    steps:
+      - checkout
       - run:
           name: Run Apex Tests
           command: |
@@ -56,6 +71,11 @@ jobs:
             sfdx force:apex:test:run -c -d ~/junit -r junit --wait 5
       - store_test_results:
           path: ~/junit
+
+  Delete_Useless_Scratch_org:
+    working_directory: ~/ci_app
+    steps:
+      - checkout
       - run:
           name: Delete Useless Scratch Org
           command: |
@@ -67,3 +87,22 @@ jobs:
 #    - sfdx force:source:convert -r force-app -d testDeploy
 #    - . cleanupDeploy.sh
 #    - sfdx force:mdapi:deploy -d testDeploy/ -u deploy -w 2
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - Create_hub_key:
+          requires:
+            - build
+      - Setup_org:
+          requires:
+            - build
+      - Run_Apex_Tests:
+          requires:
+            - Create_hub_key
+            - Setup_org
+      - Delete_Useless_Scratch_org:
+          requires:
+            - Run_Apex_Tests
