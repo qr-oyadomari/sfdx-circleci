@@ -1,6 +1,6 @@
 version: 2
 
-# general:
+general:
 # Uncomment the following to specify only a specific branch
 #   branches:
 #     only:
@@ -28,18 +28,6 @@ jobs:
             ./sfdx/install
             sfdx
             mkdir tmp
-      - save_cache:
-          key: sfdxCLI
-          paths:
-            - ~/ci_app/sfdxCLI
-
-  Setup_org:
-    machine: true
-    working_directory: ~/ci_app
-    steps:
-      - checkout
-      - restore_cache:
-          key: sfdxCLI
       - run:
           name: Create hub key
           command: |
@@ -79,12 +67,3 @@ jobs:
 #    - sfdx force:source:convert -r force-app -d testDeploy
 #    - . cleanupDeploy.sh
 #    - sfdx force:mdapi:deploy -d testDeploy/ -u deploy -w 2
-
-workflows:
-  version: 2
-  build_and_test:
-    jobs:
-      - build
-      - Setup_org:
-          requires:
-            - build
