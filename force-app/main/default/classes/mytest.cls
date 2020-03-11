@@ -8,6 +8,6 @@ private class mytest {
         // Uncomment the following line to cause a build failure
         // System.assert(false);
 
-        String str = '‚ ‚¢‚¤‚¦‚¨'
+        String str = '‚ ‚¢‚¤‚¦‚¨';
     }
 }
